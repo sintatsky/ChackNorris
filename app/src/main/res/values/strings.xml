@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">ChuckNorris</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="splash_screen_image_description">splash_screen_image</string>
+    <string name="jokes_bottom_menu_title">Jokes</string>
+    <string name="web_bottom_menu_title">Web</string>
+    <string name="hint_count">count</string>
+    <string name="btn_load">load</string>
+</resources>
