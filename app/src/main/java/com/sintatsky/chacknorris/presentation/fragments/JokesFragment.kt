@@ -2,17 +2,19 @@ package com.sintatsky.chacknorris.presentation.fragments
 
 import android.content.Context
 import android.os.Bundle
-import android.os.Parcelable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.DefaultItemAnimator
 import com.sintatsky.chacknorris.databinding.FragmentJokesBinding
 import com.sintatsky.chacknorris.presentation.JokeApp
+import com.sintatsky.chacknorris.presentation.Translator
 import com.sintatsky.chacknorris.presentation.ViewModelFactory
 import com.sintatsky.chacknorris.presentation.adapter.JokeListAdapter
+import com.sintatsky.chacknorris.presentation.adapter.TranslatedJokeListAdapter
 import com.sintatsky.chacknorris.presentation.viewmodel.JokesViewModel
 import javax.inject.Inject
 
@@ -21,6 +23,7 @@ class JokesFragment : Fragment() {
 
     private lateinit var viewModel: JokesViewModel
     private lateinit var jokesAdapter: JokeListAdapter
+    private lateinit var translatedJokeListAdapter: TranslatedJokeListAdapter
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
@@ -49,18 +52,41 @@ class JokesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         jokesAdapter = JokeListAdapter()
-        with(binding.rvJokes) {
-            layoutManager = LinearLayoutManager(requireContext())
-            adapter = jokesAdapter
-            itemAnimator = null
-        }
+        translatedJokeListAdapter = TranslatedJokeListAdapter()
+        binding.rvJokes.adapter = jokesAdapter
+        binding.rvTranslateJokes.adapter = translatedJokeListAdapter
+        binding.rvJokes.itemAnimator = null
+        binding.rvTranslateJokes.itemAnimator = null
 
         viewModel = ViewModelProvider(this, viewModelFactory)[JokesViewModel::class.java]
         viewModel.jokeList.observe(viewLifecycleOwner) {
             jokesAdapter.submitList(it)
         }
+
+        binding.btnTranslate.setOnClickListener {
+            binding.separateLine.visibility = View.VISIBLE
+            viewModel.jokeList.observe(viewLifecycleOwner) {
+                translatedJokeListAdapter.submitList(it)
+            }
+        }
+
+        binding.btnClear.setOnClickListener {
+            binding.separateLine.visibility = View.GONE
+            viewModel.jokeList.observe(viewLifecycleOwner) {
+                translatedJokeListAdapter.submitList(null)
+            }
+        }
+
         binding.btnLoad.setOnClickListener {
-            viewModel.loadData(binding.etJokesCount.text.toString().toInt())
+            if (binding.etJokesCount.text!!.isNotEmpty()) {
+                viewModel.loadData(binding.etJokesCount.text.toString().toInt())
+            } else {
+                Toast.makeText(
+                    requireContext(),
+                    "please, enter random number",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
         }
     }
 

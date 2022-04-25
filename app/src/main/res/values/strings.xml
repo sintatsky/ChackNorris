@@ -6,4 +6,6 @@
     <string name="web_bottom_menu_title">Web</string>
     <string name="hint_count">count</string>
     <string name="btn_load">load</string>
+    <string name="btn_translate">translate</string>
+    <string name="hint_enter_number">enter number</string>
 </resources>

@@ -9,8 +9,8 @@ import com.sintatsky.chacknorris.databinding.ItemJokeBinding
 import com.sintatsky.chacknorris.domain.entity.JokesValue
 import com.sintatsky.chacknorris.presentation.Translator
 
-class JokeListAdapter :
-    ListAdapter<JokesValue, JokeListAdapter.JokeViewHolder>(JokesDiffCallback()) {
+class TranslatedJokeListAdapter :
+    ListAdapter<JokesValue, TranslatedJokeListAdapter.JokeViewHolder>(JokesDiffCallback()) {
 
     class JokeViewHolder(val binding: ItemJokeBinding) : RecyclerView.ViewHolder(binding.root)
 
@@ -36,6 +36,8 @@ class JokeListAdapter :
 
     override fun onBindViewHolder(holder: JokeViewHolder, position: Int) {
         val joke = getItem(position)
-            holder.binding.tvJoke.text = joke.joke
+         Translator.translator.translate(joke.joke).addOnSuccessListener {
+            holder.binding.tvJoke.text = it
+        }
     }
 }
