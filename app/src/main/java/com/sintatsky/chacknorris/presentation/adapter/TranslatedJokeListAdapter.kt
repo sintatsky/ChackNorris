@@ -1,5 +1,6 @@
 package com.sintatsky.chacknorris.presentation.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -36,8 +37,11 @@ class TranslatedJokeListAdapter :
 
     override fun onBindViewHolder(holder: JokeViewHolder, position: Int) {
         val joke = getItem(position)
-         Translator.translator.translate(joke.joke).addOnSuccessListener {
-            holder.binding.tvJoke.text = it
-        }
+        holder.binding.tvJoke.text = joke.joke
+        Log.d("LOG", "adapter: ${joke.joke}")
+//         Translator.translator.translate(joke.joke).addOnSuccessListener {
+//             holder.binding.tvJoke.setText(it)
+//             Log.d("LOG", "adapter: $it")
+//         }
     }
 }

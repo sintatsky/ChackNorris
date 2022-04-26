@@ -2,6 +2,7 @@ package com.sintatsky.chacknorris.presentation.fragments
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -59,6 +60,7 @@ class JokesFragment : Fragment() {
         binding.rvTranslateJokes.itemAnimator = null
 
         viewModel = ViewModelProvider(this, viewModelFactory)[JokesViewModel::class.java]
+
         viewModel.jokeList.observe(viewLifecycleOwner) {
             jokesAdapter.submitList(it)
         }
@@ -67,6 +69,7 @@ class JokesFragment : Fragment() {
             binding.separateLine.visibility = View.VISIBLE
             viewModel.jokeList.observe(viewLifecycleOwner) {
                 translatedJokeListAdapter.submitList(it)
+                Log.d("LOG", "tr: $it")
             }
         }
 

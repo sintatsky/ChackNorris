@@ -10,12 +10,12 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvJokes"
         android:layout_width="0dp"
-        android:layout_height="350dp"
+        android:layout_height="0dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/separateLine"
+        app:layout_constraintBottom_toTopOf="@id/constraintLayout"
         tools:listitem="@layout/item_joke" />
 
     <View
@@ -32,6 +32,7 @@
         android:id="@+id/rvTranslateJokes"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:visibility="gone"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
         app:layout_constraintEnd_toEndOf="parent"
@@ -71,6 +72,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
             android:text="@string/btn_translate"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/btnClear"
             app:layout_constraintStart_toEndOf="@+id/btnLoad" />
@@ -81,6 +83,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
             android:text="clear"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/btnTranslate" />
